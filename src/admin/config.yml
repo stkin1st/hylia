@@ -1,27 +1,26 @@
 backend:
   name: git-gateway
   branch: master
-publish_mode: editorial_workflow
-media_folder: "src/images"
-public_folder: "/images"
+
+media_folder: "src/images/uploads"
+public_folder: "/images/uploads"
+
 collections:
-  - name: "pages"
-    label: "Pages"
-    files:
-      - name: "home"
-        label: "Homepage"
-        delete: false
-        file: "src/index.md"
-        slug: "{{slug}}"
-        fields:
-          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/njk.njk"}
-          - {label: "Title", name: "title", widget: "string"}
-          - {label: "SEO Meta Title", name: "metaTitle", widget: "string", required: false}
-          - {label: "SEO Meta Description", name: "metaDesc", widget: "string", required: false}
-          - {label: "Post Feed Heading", name: "postsHeading", widget: "string", default: "Latest posts"}
-          - {label: "Archive Link Text", name: "archiveButtonText", widget: "string", default: "See all posts"}
-          - {label: "Social Image", name: "socialImage", widget: "image", required: false}
-          - {label: "Body", name: "body", widget: "markdown"}
+  - name: "bridges"
+    label: "Bridges"
+    folder: "src/bridges"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Bridge Model", name: "bridge_model", widget: "string" }
+      - { label: "Use Case", name: "use_case", widget: "string" }
+      - { label: "Install Type", name: "install_type", widget: "string" }
+      - { label: "Specs Summary", name: "specs_summary", widget: "text" }
+      - { label: "Intro Paragraph", name: "intro_paragraph", widget: "markdown" }
+      - { label: "CTA Text", name: "cta_text", widget: "string" }
+      - { label: "CTA URL", name: "cta_url", widget: "string" }
   - name: "generic_pages"
     label: "Generic Pages"
     folder: "src/pages"
