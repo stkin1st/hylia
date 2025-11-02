@@ -2,11 +2,6 @@ const rssPlugin = require('@11ty/eleventy-plugin-rss');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const fs = require('fs');
 
-// Include bridge pages in the Eleventy build
-eleventyConfig.addCollection("bridges", function (collectionApi) {
-  return collectionApi.getFilteredByGlob("src/bridges/*.md");
-});
-
 // Import filters
 const dateFilter = require('./src/filters/date-filter.js');
 const markdownFilter = require('./src/filters/markdown-filter.js');
@@ -57,6 +52,11 @@ module.exports = function(config) {
       .slice(0, site.maxPostsPerPage);
   });
 
+  // ✅ Add bridge pages collection here (INSIDE)
+  config.addCollection('bridges', collection => {
+    return collection.getFilteredByGlob('src/bridges/*.md');
+  });
+
   // Plugins
   config.addPlugin(rssPlugin);
   config.addPlugin(syntaxHighlight);
@@ -66,9 +66,7 @@ module.exports = function(config) {
     callbacks: {
       ready: function(err, browserSync) {
         const content_404 = fs.readFileSync('dist/404.html');
-
         browserSync.addMiddleware('*', (req, res) => {
-          // Provides the 404 content without redirect.
           res.write(content_404);
           res.end();
         });
